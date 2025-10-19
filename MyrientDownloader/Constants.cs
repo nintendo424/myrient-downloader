@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace MyrientDownloader;
 
 public static class Constants
@@ -7,8 +9,7 @@ public static class Constants
     private const string NoIntroUrl = "https://www.no-intro.org";
     private const string RedumpUrl = "http://redump.org";
     
-    // public static readonly string UserAgent = $"myrient-downloader/{Assembly.GetExecutingAssembly().GetName().Version}";
-    public const string UserAgent = "wget/1.25.0";
+    public static readonly string UserAgent = $"myrient-downloader/{Assembly.GetExecutingAssembly().GetName().Version}";
 
     public static readonly Dictionary<string, string> Catalogs = new() {
         { NoIntroUrl, "No-Intro" },
