@@ -40,4 +40,15 @@ jobs:
         zip -r MyrientDownloader-linux-x64.zip linux-x64/publish/*
         zip -r MyrientDownloader-osx-x64.zip osx-x64/publish/*
         zip -r MyrientDownloader-osx-arm64.zip osx-arm64/publish/*
+
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      if: github.ref_type == 'tag'
+      with:
+        files: |
+          /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0/MyrientDownloader-win-x64.zip
+          /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0/MyrientDownloader-linux-x64.zip
+          /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0/MyrientDownloader-osx-x64.zip
+          /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0/MyrientDownloader-osx-arm64.zip
+          LICENSE
       
