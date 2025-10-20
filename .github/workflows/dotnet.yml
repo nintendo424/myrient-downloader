@@ -2,6 +2,10 @@ name: .NET Build and Tag
 
 on:
   workflow_dispatch:
+    inputs:
+      target_tag:
+        required: true
+        type: string
   push:
     tags:
       - '*'
@@ -12,7 +16,7 @@ jobs:
     steps:    
     - uses: actions/checkout@v4
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ github.event.inputs.target_branch || github.ref }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
