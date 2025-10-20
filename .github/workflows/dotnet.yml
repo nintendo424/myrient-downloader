@@ -35,7 +35,7 @@ jobs:
 
     - name: Zip Artifacts
       run: |
-        cd myrient-downloader/MyrientDownloader/bin/Release/net9.0
+        cd /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0
         zip -r MyrientDownloader-win-x64.zip win-x64/publish/*
         zip -r MyrientDownloader-linux-x64.zip linux-x64/publish/*
         zip -r MyrientDownloader-osx-x64.zip osx-x64/publish/*
