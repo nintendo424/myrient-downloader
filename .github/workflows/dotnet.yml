@@ -1,0 +1,28 @@
+name: .NET Build and Tag
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on pushes to tags starting with 'v' (e.g., v1.0, v2.1)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4 # Checkout the code
+      with:
+        ref: ${{ github.ref }} # Checkout the specific tag
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Publish
+      run: dotnet publish --configuration Release -o publish
