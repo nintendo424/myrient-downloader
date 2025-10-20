@@ -1,23 +1,46 @@
 name: .NET Build and Tag
 
 on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Specify a tag name to use for the workflow'
+        required: false
+        type: string
+        default: ''
   push:
     tags:
-      - 'v*' # Trigger on pushes to tags starting with 'v' (e.g., v1.0, v2.1)
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4 # Checkout the code
+    
+    - name: Get tag name
+      id: get_tag
+      run: |
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+          TAG_NAME="${{ github.event.inputs.tag_name }}"
+          if [[ -z "$TAG_NAME" ]]; then
+            echo "No tag name provided via workflow_dispatch input."
+            # Optionally, handle this case, e.g., exit or use a default
+          fi
+        else # This is a push event
+          TAG_NAME="${{ github.ref_name }}"
+        fi
+        echo "tag_name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+    
+    - uses: actions/checkout@v4
       with:
-        ref: ${{ github.ref }} # Checkout the specific tag
+        ref: ${{ steps.get_tag.outputs.tag_name }}
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+        
     - name: Restore dependencies
       run: dotnet restore
 
