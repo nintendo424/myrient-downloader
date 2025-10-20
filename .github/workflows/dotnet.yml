@@ -1,11 +1,6 @@
 name: .NET Build and Tag
 
 on:
-  workflow_dispatch:
-    inputs:
-      target_tag:
-        required: true
-        type: string
   push:
     tags:
       - '*'
