@@ -31,4 +31,13 @@ jobs:
         dotnet publish -c Release -r win-x64
         dotnet publish -c Release -r linux-x64
         dotnet publish -c Release -r osx-x64
-        dotnet publish -c Release -r osx-arm
+        dotnet publish -c Release -r osx-arm64
+
+    - name: Zip Artifacts
+      run: |
+        cd /home/runner/work/myrient-downloader/myrient-downloader/MyrientDownloader/bin/Release/net9.0
+        zip -r MyrientDownloader-win-x64.zip win-x64/publish/*
+        zip -r MyrientDownloader-linux-x64.zip linux-x64/publish/*
+        zip -r MyrientDownloader-osx-x64.zip osx-x64/publish/*
+        zip -r MyrientDownloader-osx-arm64.zip osx-arm64/publish/*
+      
