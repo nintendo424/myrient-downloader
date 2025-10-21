@@ -22,6 +22,11 @@ public partial class Downloader
         
         _httpClient = httpClient;
         _taskCount = taskCount;
+        
+        if (!outputPath.Exists)
+        {
+            outputPath.Create();
+        }
         _outputPath = outputPath.FullName;
         _chunkSize = chunkSize;
         _cancellationToken = cancellationToken;
@@ -115,8 +120,12 @@ public partial class Downloader
                                     overall.Increment(1);
                                     return;
                                 }
-
-                                zip.ExtractToDirectory(_outputPath, true);
+                                
+                                zip.ExtractToDirectory(
+                                    zip.Entries.Count > 1 
+                                        ? Path.Join(_outputPath, x.Name) 
+                                        : _outputPath,
+                                    true);
                             }
 
                             File.Delete(outputPath);

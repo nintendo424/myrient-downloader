@@ -10,7 +10,7 @@ public static class Constants
     private const string RedumpUrl = "http://redump.org";
     
     public static readonly string UserAgent = $"myrient-downloader/{Assembly.GetExecutingAssembly().GetName().Version}";
-
+    
     public static readonly Dictionary<string, string> Catalogs = new() {
         { NoIntroUrl, "No-Intro" },
         { RedumpUrl, "Redump" }
