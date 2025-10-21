@@ -3,15 +3,15 @@ name: .NET Build and Tag
 on:
   push:
     tags:
-      - '*'
-        
+      - '**'
+
 permissions:
   contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:    
+    steps:
     - uses: actions/checkout@v4
       with:
         ref: ${{ github.ref }}
@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
-        
+
     - name: Restore dependencies
       run: dotnet restore
 
